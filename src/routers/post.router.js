@@ -1,13 +1,13 @@
 import express from 'express';
 import { removeWriter, assignWriter, createPost, getPosts, getPostById, updatePostById, deletePostById } from '../usecases/post.usecase.js';
 import { CustomError } from '../libs/errorCustom.js'
-
+import { isAuth } from '../middlewares/auth.middleware.js';
 
 const router = express.Router()
 
 //router.use(isAuth)
 
-router.get('/', async (request, response) => {
+router.get('/', isAuth, async (request, response) => {
 
     try {
 
@@ -48,7 +48,7 @@ router.get('/', async (request, response) => {
 
 })
 
-router.get('/:id', async (request, response) => {
+router.get('/:id', isAuth, async (request, response) => {
     try {
         
         const { id } = request.params
@@ -73,7 +73,7 @@ router.get('/:id', async (request, response) => {
     }
 })
 
-router.post('/', async (request, response) => {
+router.post('/', isAuth, async (request, response) => {
     try {
         
         const newPost = request.body
@@ -99,7 +99,7 @@ router.post('/', async (request, response) => {
     }
 })
 
-router.patch('/:id', async (request, response) => {
+router.patch('/:id', isAuth, async (request, response) => {
     try {
         
         const { id } = request.params
@@ -125,7 +125,7 @@ router.patch('/:id', async (request, response) => {
     }
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', isAuth, async (request, response) => {
     try {
         
         const { id } = request.params
@@ -151,7 +151,7 @@ router.delete('/:id', async (request, response) => {
     }
 })
 
-router.put('/assignWritter/:_id', async (request, response) => {
+router.put('/assignWritter/:_id', isAuth, async (request, response) => {
     try {
         
         const  {_id} = request.params
@@ -183,7 +183,7 @@ router.put('/assignWritter/:_id', async (request, response) => {
     }
 })
 
-router.put('/removeWritter/:_id', async (request, response) => {
+router.put('/removeWritter/:_id', isAuth, async (request, response) => {
     try {
         
         const  {_id} = request.params
