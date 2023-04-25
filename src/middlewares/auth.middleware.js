@@ -2,7 +2,7 @@ import jwt from '../libs/jwt.js'
 
 const isAuth = (request, response, next)=>{
     try {
-       
+        
         const authorization = request.headers.authorization || ""
         
         const token = authorization.replace("Bearer ", "") 
