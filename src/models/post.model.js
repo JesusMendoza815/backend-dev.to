@@ -19,9 +19,13 @@ const postSchema = new mongoose.Schema({
         type : Date, 
         default: Date.now
     },
-    writer: [{
+    user: [{
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
+    }],
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'comments'
     }]
 })
 

@@ -30,20 +30,29 @@ const deletePostById = (id) => {
     return Post.findByIdAndDelete(id)
 }
 
-const assignWriter = (_id, writer) => {
-    return Post.findByIdAndUpdate( _id, writer).populate('users')     
+const assignUser = (_id, user) => {
+    return Post.findByIdAndUpdate( _id, user)    
 }
 
-const removeWriter =  (_id, writer) => {
-    return Post.findByIdAndUpdate( _id, writer)
+const removeUser =  (_id, user) => {
+    return Post.findByIdAndUpdate( _id, user)
 }
 
+const assignComment = (_id, comment) => {
+    return Post.findByIdAndUpdate( _id, comment)    
+}
+
+const removeComment =  (_id, comment) => {
+    return Post.findByIdAndUpdate( _id, comment)
+}
 export {
     createPost,
     getPosts,
     getPostById,
     updatePostById,
     deletePostById,
-    assignWriter,
-    removeWriter
+    assignUser,
+    removeUser,
+    assignComment,
+    removeComment
 }
