@@ -6,6 +6,7 @@ import {
   updateUserById,
   deleteUserById
 } from '../usecases/user.usecases.js';
+import jwt from '../libs/jwt.js';
 
 const routerUsers = express.Router();
 
@@ -51,14 +52,16 @@ routerUsers.get('/:id', async (req, res) => {
 });
 
 //Create User
-routerUsers.post('/', async (req, res) => {
+routerUsers.post('/signup', async (req, res) => {
   try {
     const { body } = req;
     const userCreated = await createUser( body );
+    const token = jwt.sign({ id: userCreated._id });
 
     res.json({
       success: true,
-      data: userCreated
+      data: userCreated,
+      token
     });
 
   } catch (error) {

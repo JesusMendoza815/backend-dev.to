@@ -8,25 +8,17 @@ const userSchema = mongoose.Schema({
     maxLength: 100,
     required: true
   },
-  lastName: {
-    type: String,
-    trim: true,
-    minLength: 1,
-    maxLength: 100,
-    required: true
-  },
   bio: {
     type: String,
     trim: true,
     minLength: 1,
     maxLength: 500,
-    required: true
+    default: "Welcome to the Dev.to, you can edit this biography :3."
   },
   nat: {
     type: String,
     minLength: 2,
-    maxLength: 5,
-    required: true
+    maxLength: 5
   },
   email: {
     type: String,
