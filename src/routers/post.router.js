@@ -1,5 +1,5 @@
 import express from 'express';
-import { removeWriter, assignWriter, createPost, getPosts, getPostById, updatePostById, deletePostById } from '../usecases/post.usecase.js';
+import { assignComment, removeComment, removeUser, assignUser, createPost, getPosts, getPostById, updatePostById, deletePostById } from '../usecases/post.usecase.js';
 import { CustomError } from '../libs/errorCustom.js'
 import { isAuth } from '../middlewares/auth.middleware.js';
 
@@ -11,7 +11,7 @@ router.get('/', isAuth, async (request, response) => {
 
     try {
 
-        const { title, content, date, writer } = request.query
+        const { title, content, date, user, comments } = request.query
     
         let filters = {}
     
@@ -21,7 +21,9 @@ router.get('/', isAuth, async (request, response) => {
 
         if(date) filters = {...filters, date}
 
-        if(writer) filters = {...filters, writer}
+        if(user) filters = {...filters, user}
+
+        if(comments) filters = {...filters, comments}
     
         const postsFound = await getPosts(filters)
 
@@ -92,7 +94,7 @@ router.post('/', isAuth, async (request, response) => {
         .status(error.status || 400)
         .json({
             success: false,
-            message: 'Error at create cell',
+            message: 'Error at create post',
             extraInfo: error.message
         })
     
@@ -151,15 +153,15 @@ router.delete('/:id', isAuth, async (request, response) => {
     }
 })
 
-router.put('/assignWritter/:_id', isAuth, async (request, response) => {
+router.patch('/assignUser/:_id', isAuth, async (request, response) => {
     try {
         
         const  {_id} = request.params
-        const { writer } = request.body
+        const { user } = request.body
        
-        const postUpdated= await assignWriter( _id,
+        const postUpdated= await assignUser( _id,
           {
-            $push: { writer: writer },
+            $push: { user: user },
           }
         );
        // response.send(`${cellUpdated.name} updated`);
@@ -176,22 +178,23 @@ router.put('/assignWritter/:_id', isAuth, async (request, response) => {
         .status(error.status || 400)
         .json({
             success: false,
-            message: 'Error at update post',
+            message: 'Error at assign user',
             extraInfo: error.message
         })
     
     }
 })
 
-router.put('/removeWritter/:_id', isAuth, async (request, response) => {
+
+router.patch('/removeUser/:_id', isAuth, async (request, response) => {
     try {
         
         const  {_id} = request.params
-        const { writer } = request.body
+        const { user } = request.body
        
-        const postUpdated= await removeWriter( _id,
+        const postUpdated= await removeUser( _id,
           {
-            $pull: { writer: writer },
+            $pull: { user: user },
           }
         );
        // response.send(`${cellUpdated.name} updated`);
@@ -208,7 +211,71 @@ router.put('/removeWritter/:_id', isAuth, async (request, response) => {
         .status(error.status || 400)
         .json({
             success: false,
-            message: 'Error at update post',
+            message: 'Error at remove user',
+            extraInfo: error.message
+        })
+    
+    }
+})
+
+router.patch('/assignComment/:_id', async (request, response) => {
+    try {
+        
+        const  {_id} = request.params
+        const { comments } = request.body
+       
+        const postUpdated= await assignComment( _id,
+          {
+            $push: { comments: comments },
+          }
+        );
+       // response.send(`${cellUpdated.name} updated`);
+
+        response.json({
+            success: true,
+            data: {
+                posts: postUpdated
+            }
+        })
+
+    } catch (error) {
+        response
+        .status(error.status || 400)
+        .json({
+            success: false,
+            message: 'Error at assign comment',
+            extraInfo: error.message
+        })
+    
+    }
+})
+
+router.patch('/removeComment/:_id', async (request, response) => {
+    try {
+        
+        const  {_id} = request.params
+        const { comment } = request.body
+       
+        const postUpdated= await removeComment( _id,
+          {
+            $pull: { comments: comment },
+          }
+        );
+       // response.send(`${cellUpdated.name} updated`);
+
+        response.json({
+            success: true,
+            data: {
+                posts: postUpdated
+            }
+        })
+
+    } catch (error) {
+        response
+        .status(error.status || 400)
+        .json({
+            success: false,
+            message: 'Error at delete comment',
             extraInfo: error.message
         })
     
