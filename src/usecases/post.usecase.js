@@ -39,7 +39,7 @@ const removeUser =  (_id, user) => {
 }
 
 const assignComment = (_id, comment) => {
-    return Post.findByIdAndUpdate( _id, comment)    
+    return Post.findByIdAndUpdate( _id, comment).populate("comments")    
 }
 
 const removeComment =  (_id, comment) => {

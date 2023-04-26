@@ -253,11 +253,11 @@ router.patch('/removeComment/:_id', async (request, response) => {
     try {
         
         const  {_id} = request.params
-        const { comment } = request.body
+        const { comments } = request.body
        
         const postUpdated= await removeComment( _id,
           {
-            $pull: { comments: comment },
+            $pull: { comments: comments },
           }
         );
        // response.send(`${cellUpdated.name} updated`);
