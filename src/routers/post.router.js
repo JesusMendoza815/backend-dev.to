@@ -69,7 +69,7 @@ router.get('/:id', async (request, response) => {
         .status(error.status || 400)
         .json({
             success: false,
-            message: 'Error at get post by id'
+            message: error.message
         })
     
     }
@@ -254,11 +254,11 @@ router.patch('/removeComment/:_id', async (request, response) => {
     try {
         
         const  {_id} = request.params
-        const { comment } = request.body
+        const { comments } = request.body
        
         const postUpdated= await removeComment( _id,
           {
-            $pull: { comments: comment },
+            $pull: { comments: comments },
           }
         );
        // response.send(`${cellUpdated.name} updated`);
