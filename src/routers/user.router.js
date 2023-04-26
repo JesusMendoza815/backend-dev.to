@@ -57,7 +57,8 @@ routerUsers.post('/signup', async (req, res) => {
   try {
     const { body } = req;
     const userCreated = await createUser( body );
-    const token = jwt.sign({ id: userCreated._id });
+    const { _id, name } = userCreated
+    const token = jwt.sign({ _id, name });
 
     res.json({
       success: true,

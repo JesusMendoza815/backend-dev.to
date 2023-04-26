@@ -8,12 +8,16 @@ const commentSchema = new mongoose.Schema({
         minLength: 2,
         maxLength: 800
     },
-    user: [{
+    user: {
         type: Schema.Types.ObjectId, 
         ref: "users", 
         required: true  
-    }] 
-,
+    },
+    post: {
+        type: Schema.Types.ObjectId, 
+        ref: "posts", 
+        required: true  
+    }
 })
 
 const Comment = mongoose.model('comments', commentSchema)
