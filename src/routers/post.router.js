@@ -7,7 +7,7 @@ const router = express.Router()
 
 //router.use(isAuth)
 
-router.get('/', /*isAuth,*/ async (request, response) => {
+router.get('/', isAuth, async (request, response) => {
 
     try {
 
@@ -50,7 +50,7 @@ router.get('/', /*isAuth,*/ async (request, response) => {
 
 })
 
-router.get('/:id',/*isAuth,*/ async (request, response) => {
+router.get('/:id',isAuth, async (request, response) => {
     try {
         
         const { id } = request.params
@@ -69,13 +69,13 @@ router.get('/:id',/*isAuth,*/ async (request, response) => {
         .status(error.status || 400)
         .json({
             success: false,
-            message: 'Error at get post by id'
+            message: error.message
         })
     
     }
 })
 
-router.post('/', /*isAuth,*/ async (request, response) => {
+router.post('/', isAuth, async (request, response) => {
     try {
         
         const newPost = request.body
@@ -101,7 +101,7 @@ router.post('/', /*isAuth,*/ async (request, response) => {
     }
 })
 
-router.patch('/:id',/*isAuth,*/ async (request, response) => {
+router.patch('/:id', isAuth, async (request, response) => {
     try {
         
         const { id } = request.params
@@ -127,7 +127,7 @@ router.patch('/:id',/*isAuth,*/ async (request, response) => {
     }
 })
 
-router.delete('/:id', /*isAuth,*/ async (request, response) => {
+router.delete('/:id', isAuth, async (request, response) => {
     try {
         
         const { id } = request.params
@@ -153,7 +153,7 @@ router.delete('/:id', /*isAuth,*/ async (request, response) => {
     }
 })
 
-router.patch('/assignUser/:_id', /*isAuth,*/ async (request, response) => {
+router.patch('/assignUser/:_id', isAuth, async (request, response) => {
     try {
         
         const  {_id} = request.params
@@ -186,7 +186,7 @@ router.patch('/assignUser/:_id', /*isAuth,*/ async (request, response) => {
 })
 
 
-router.patch('/removeUser/:_id', /*isAuth,*/ async (request, response) => {
+router.patch('/removeUser/:_id', isAuth, async (request, response) => {
     try {
         
         const  {_id} = request.params
