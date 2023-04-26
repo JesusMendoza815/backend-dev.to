@@ -19,10 +19,10 @@ const postSchema = new mongoose.Schema({
         type : Date, 
         default: Date.now
     },
-    user: [{
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+        ref: 'users'
+    },
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'comments'

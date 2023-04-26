@@ -1,4 +1,4 @@
-import bycript from '../libs/bycript.js';
+import bcrypt from '../libs/bcrypt.js';
 import { User } from '../models/user.model.js';
 
 const getAllUsers = () => {
@@ -15,7 +15,7 @@ const createUser = async (userData) => {
 
   if (userExist) throw new Error('Ya existe un registro con ese email');
 
-  const encriptedPassword = await bycript.hash(password);
+  const encriptedPassword = await bcrypt.hash(password);
 
   return User.create({ ...userData, password: encriptedPassword} );
 };

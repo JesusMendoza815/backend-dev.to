@@ -1,14 +1,15 @@
 import express from 'express'
-import {login} from '../usecases/auth.usecase.js'
+import { login } from '../usecases/auth.usecase.js'
 
 
 const router = express.Router()
 
-router.post('/login',async(request,response)=>{
+router.post('/',async(request,response) => {
     try{
         const { email, password } = request.body
 
         const token = await login(email,password)
+        console.log(token);
 
         response.json({
             success: true,
@@ -17,14 +18,13 @@ router.post('/login',async(request,response)=>{
                 token
             }
         })
-    }catch(error){
+    }catch(error) {
         response
             .status(400)
             .json({
                 success: false,
                 message: "Error at get All Koders"
             })
-
     }
 })
 

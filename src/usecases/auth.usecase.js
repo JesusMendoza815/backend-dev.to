@@ -12,7 +12,8 @@ const login = async (email, password) =>{
     if(!isValidPassword) throw new Error('Invalid credentials')
 
     //Generar el token
-    return jwt.sign({ id: userFound._id })
+    const { _id, name } = userFound
+    return jwt.sign({ _id, name });
 }
 
 export { login }
