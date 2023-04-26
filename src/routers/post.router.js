@@ -7,7 +7,7 @@ const router = express.Router()
 
 //router.use(isAuth)
 
-router.get('/', isAuth, async (request, response) => {
+router.get('/', async (request, response) => {
 
     try {
 
@@ -50,7 +50,7 @@ router.get('/', isAuth, async (request, response) => {
 
 })
 
-router.get('/:id',isAuth, async (request, response) => {
+router.get('/:id', async (request, response) => {
     try {
         
         const { id } = request.params
