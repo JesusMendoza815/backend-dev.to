@@ -9,7 +9,6 @@ router.post('/',async(request,response) => {
         const { email, password } = request.body
 
         const token = await login(email,password)
-        console.log(token);
 
         response.json({
             success: true,
