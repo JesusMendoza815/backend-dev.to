@@ -19,7 +19,7 @@ const getPosts = (filters = {}) => {
 }
 
 const getPostById = (id) => {
-    return Post.findById(id)
+    return Post.findById(id).populate('user', { name: 1 })
 }
 
 const updatePostById = (id, postData, options = {}) => {
