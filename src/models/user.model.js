@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
     trim: true,
     minLength: 1,
     maxLength: 500,
-    default: "Welcome to the Dev.to, you can edit this biography :3."
+    default: "404 bio not found"
   },
   nat: {
     type: String,
