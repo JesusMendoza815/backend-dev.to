@@ -15,7 +15,7 @@ const createPost = async (postData) => {
 }
 
 const getPosts = (filters = {}) => {
-    return Post.find(filters)
+    return Post.find(filters).populate('user', { name: 1 })
 }
 
 const getPostById = (id) => {
