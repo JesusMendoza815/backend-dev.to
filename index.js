@@ -4,8 +4,8 @@ import { server } from "./src/server.js";
 //Archivo principal para conxion del server
 dbConnect()
   .then(() => {
-    server.listen(8080, () => {
-      console.log(`Server listening on port 8080`);
+    server.listen(8080 || 5200, () => {
+      console.log(`Server listening on port 8080 or 5200`);
     });
   })
   .catch(err => {
