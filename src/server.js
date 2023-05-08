@@ -12,6 +12,7 @@ server.use(express.json());
 server.use(cors());
 
 // Routers
+server.get('/', (req, res) => res.json("Hi, i'm the Dev.to backend clon :3"));
 server.use('/login', routerAuth)
 server.use('/users', routerUsers);
 server.use('/posts', routerPosts);
